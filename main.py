@@ -1,5 +1,6 @@
 from PIL import Image
 from sklearn.cluster import KMeans
+from pathlib import Path
 import numpy as np
 
 # Try until a valid image path is inputed
@@ -9,7 +10,7 @@ def openImg():
             text = input("Input image name: ").strip().strip('"')
             img = Image.open(text).convert("RGB")
             img.thumbnail((150, 150))
-            return img
+            return img, text
         except:
             print("Invalid image!")
 
@@ -27,14 +28,28 @@ def dominantCol(img):
     order = np.argsort(ppc)[::-1]
     palette = centres.astype(int)[order]
 
-    printPalette(palette)
+    return palette
 
 def printPalette(palette):
     for r, g, b in palette:
         print(f"#{r:02x}{g:02x}{b:02x}")
 
+def savePalette(palette, path):
+    #Output palette in a .txt file with the same name as image
+    outFile = Path("palette")
+    outFile.mkdir(exist_ok=True) #if file doesn't exist create it
+    outpath = outFile / Path(path).with_suffix(".txt").name
+    with open(outpath, "w") as file:
+        for r, g, b in palette:
+            file.write(f"#{r:02x}{g:02x}{b:02x}\n")
+
+    file.close()
+
+
 def main():
-    img = openImg()
-    dominantCol(img)
+    img, text = openImg()
+    palette = dominantCol(img)
+    printPalette(palette)
+    savePalette(palette, text)
 
 main()
