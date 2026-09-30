@@ -49,7 +49,7 @@ def savePalette(palette, path):
 def main():
     img, text = openImg()
     palette = dominantCol(img)
-    printPalette(palette)
+    #printPalette(palette)
     savePalette(palette, text)
 
 main()
