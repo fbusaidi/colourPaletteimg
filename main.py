@@ -9,3 +9,9 @@ def openImg():
         except:
             print("Invalid image!")
 
+            
+
+def main():
+    openImg()
+
+main()
