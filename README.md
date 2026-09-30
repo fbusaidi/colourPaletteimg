@@ -11,10 +11,12 @@ Dependencies needed:
 ```bash
 git clone https://github.com/fbusaidi/colourPaletteimg.git
 cd colourPaletteimg
+```
 
 ## Usage
 ```bash
 python main.py
+```
 
 System would prompt the user to inter the image file path
 
